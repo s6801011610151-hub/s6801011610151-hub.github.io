@@ -382,7 +382,7 @@
 
   /* ---------- page switching ---------- */
   // ปลายทางรับข้อมูล (Apps Script Web App ที่ตั้งเป็น Anyone)
-  const ENDPOINT = 'https://script.google.com/macros/s/AKfycbw4gEfGWsIdWQvzSxlPYPpEJ66oTjoieNIqlQ9Ov81T4M0RMEFMLJOxF-_lSwYyX8cO/exec';
+  const ENDPOINT = 'https://script.google.com/macros/s/AKfycbwnZ5WhXs8BX9NwfGLu5asDrCfjolhXAGTWQfdSqnMki2XT6T84SJGOUWjPyhRj0xNe/exec';
 
   function go(n, fromHistory) {
     if (n === 2 && !data) n = 1;
@@ -556,7 +556,7 @@
     })
       .then(r => { if (!r.ok) throw new Error('เซิร์ฟเวอร์ตอบกลับผิดพลาด (' + r.status + ')'); return r.json(); })
       .then(done)
-      .catch(err => fail(err.name === 'AbortError' ? new Error('ใช้เวลานานเกินไป เช็กอินเทอร์เน็ตแล้วลองใหม่') : err))
+      .catch(err => fail(new Error(err.name === 'AbortError' ? 'ใช้เวลานานเกินไป เช็กอินเทอร์เน็ตแล้วลองใหม่' : (err instanceof TypeError ? 'เชื่อมต่อระบบไม่ได้ ลองใหม่อีกครั้ง หรือแจ้งกรรมการชมรม' : err.message))))
       .finally(() => clearTimeout(timer));
   });
 })();
